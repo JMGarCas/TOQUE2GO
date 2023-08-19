@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Become Premium
+{% endblock %}
+
+{% block main %}
+    {% if error %}
+      <div class="container-lg my-5">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Error: </strong>{{ error }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      </div>
+    {% endif %}
+    {% if info["isPremium"] == False %}
+      <div class="container m-5 mx-auto premium">
+          <div class="row text-center" >
+              <div class="col-sm" style="color: #FFFFFF">
+                  <h1 class="premium-header" style="font-weight: bold">Become a Premium Member today!</h1>
+                  <p  class="premium-paragraph">As a premium member, you will receive:</p>
+                  <ul class="text-left">
+                    <li>5% discounts in every order</li>
+                    <li>No extra costs for delivering to a different ubication</li>
+                  </ul>
+                  <form action="/premium" method="post">
+                    <div class="d-grid">
+                      <button type="submit" class="btn btn-danger premium-button">Become Premium</button>
+                    </div>
+                  </form>
+              </div>
+              <div class="col-sm d-flex justify-content-center">
+                  <img class="chef" src=./static/chef.png alt="chef-premium">
+              </div>
+          </div>
+      </div>
+    {% endif %}
+{% endblock %}

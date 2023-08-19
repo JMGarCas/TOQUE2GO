@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Appointments
+{% endblock %}
+
+{% block main %}
+    {% if error %}
+      <div class="container-lg my-5">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Error: </strong>{{ error }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      </div>
+    {% else %}
+      <div class="container-lg">
+        {% for appointment in appointments %}
+            <div id="appointments-box" class="row m-4">
+                <div class="col-md-2 py-3">
+                    {% if appointment["user_id"] == info["id"] %}
+                        <a href="/profile/{{ appointment["client_id"] }}" style="text-decoration: none; color: #212529">
+                            <img id="review-profile" src="{{ appointment["profile"] }}" alt="review-profile">
+                        </a>
+                    {% else %}
+                        <a href="/profile/{{ appointment["user_id"] }}" style="text-decoration: none; color: #212529">
+                            <img id="review-profile" src="{{ appointment["profile"] }}" alt="review-profile">
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="col-md-10 p-2">
+                    <div class="d-flex justify-content-between pt-3">
+                        <div>
+                            <h4 style="font-weight: bold">{{ appointment["name"] }} {{ appointment["surname"] }}</h4>
+                            <h6><i class="bi bi-geo-alt"></i> {{ appointment["ubication"] }}</h6>
+                            <h6><i class="bi bi-calendar"></i> {{ appointment["date"] }}</h6>
+                        </div>
+                        <div>
+                            <h4 class="d-flex justify-content-end">
+                                {% if appointment["status"] == "waiting" %}
+                                    <i class="bi bi-hourglass"></i>
+                                {% elif appointment["status"] == "accepted" %}
+                                    <i class="bi bi-check"></i>
+                                {% else %}
+                                    <i class="bi bi-x"></i>
+                                {% endif %}
+                                {% if appointment["client_id"] == info["id"] %}
+                                    <i class="bi bi-box-arrow-right"></i>
+                                {% else %}
+                                    <i class="bi bi-box-arrow-in-right"></i>
+                                {% endif %}
+                            </h4>
+                            <h6><i class="bi bi-person"></i> {{ appointment["people"] }} persons ( {{ appointment["cost"] }}€ )</h6>
+                        </div>
+                    </div>
+                </div>
+                {% if appointment["user_id"] == info["id"] and appointment["status"] == "waiting" %}
+                    <hr style="margin:1px">
+                    <div class="row g-2 text-center justify-content-around my-3">
+                        <a href="/accept/{{ appointment["id"] }}" class="col-sm-5 btn btn-success"><i class="bi bi-check"></i> Accept</a>
+                        <a href="/decline/{{ appointment["id"] }}" class="col-sm-5 btn btn-danger"><i class="bi bi-x"></i> Decline</a>
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        {% if not appointments %}
+            <div class="d-flex justify-content-center align-items-center" style="height:100px">
+                <h5 style="color: #dc3545; font-weight: bold">You have no appointments</h5>
+            </div>
+        {% endif %}
+      </div>
+    {% endif %}
+{% endblock %}

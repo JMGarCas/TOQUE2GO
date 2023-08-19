@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    <div id="form" class="container py-5">
+        {% if error %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error: </strong>{{ error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
+        <form action="/register" method="post">
+            <div class="form-floating mb-3">
+                <input class="form-control" id="floatingEmail" autocomplete="off" autofocus name="email" placeholder="Email" type="email" required>
+                <label for="floatingEmail">Email address</label>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="floatingName" autocomplete="off" name="name" placeholder="Name" type="text" required>
+                        <label for="floatingName">Name</label>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="floatingSurname" autocomplete="off" name="surname" placeholder="Surname" type="text" required>
+                        <label for="floatingSurname">Surname</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="floatingPassword" autocomplete="off" name="password" placeholder="Password" type="password" required>
+                        <label for="floatingPassword">Password</label>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="floatingPasswordAgain" autocomplete="off" name="confirmation" placeholder="Password (again)" type="password" required>
+                        <label for="floatingPasswordAgain">Password (Again)</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-floating mb-3">
+                <select class="form-select" id="floatingUbication" autocomplete="off" name="ubication" placeholder="Ubication" type="text" required>
+                    <option disabled selected value="">( Select an Ubication )</option>
+                    {% for ubication in ubications %}
+                        <option value="{{ubication}}">{{ ubication }}</option>
+                    {% endfor %}
+                </select>
+                <label for="floatingUbication">Ubication</label>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-danger">Create Account</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Explore
+{% endblock %}
+
+{% block main %}
+    {% if error %}
+      <div class="container-lg my-5">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Error: </strong>{{ error }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      </div>
+    {% else %}
+      <div class="container-lg">
+        <form action="/explore" method="post">
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="form-floating mt-3">
+                            <select class="form-select" id="floatingUbication" autocomplete="off" name="ubication" placeholder="Ubication" type="text">
+                                <option value="default">( Select an Ubication )</option>
+                                {% for ubication in ubications %}
+                                    <option value="{{ubication}}">{{ ubication }}</option>
+                                {% endfor %}
+                            </select>
+                            <label for="floatingUbication">Ubication</label>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="form-floating mt-3">
+                            <select class="form-select" id="floatingType" autocomplete="off" name="type" placeholder="Type of Food" type="text">
+                                <option value="default">( Select a Type of Food )</option>
+                                {% for type in allTypes %}
+                                    <option value="{{ type }}">{{ type }}</option>
+                                {% endfor %}
+                            </select>
+                            <label for="floatingUbication">Type of Food</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="input-group mt-3">
+                            <div class="form-floating">
+                                <input name="cost" type="number" step="0.01" min="0.01" focus class="form-control" id="floatingInputGroup" placeholder="30.23">
+                                <label for="floatingInputGroup">Max Cost</label>
+                            </div>
+                            <span class="input-group-text">€ / person</span>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="d-grid mt-3">
+                            <button type="submit" class="btn btn-danger" style="padding:1em">Apply Filter</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        {% for chef in chefs %}
+            <div class="accordion m-4" id="accordion{{ chef["id"] }}">
+                <div class="accordion-item" style="border: none">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{ chef["id"] }}" aria-expanded="false" aria-controls="{{ chef["id"] }}">
+                        <div class="row px-3 d-flex justify-content-center">
+                            <div class="col-md-2 py-3">
+                                <img id="review-profile" src="{{ chef["profile"] }}" alt="review-profile">
+                            </div>
+                            <div class="col-md-10" style="padding: 20px 0 0 80px">
+                                <div>
+                                    <div>
+                                        <h4 style="font-weight: bold">{{ chef["name"] }} {{ chef["surname"] }}</h4>
+                                        <h6><i class="bi bi-geo-alt"></i> {{ chef["ubication"] }}</h6>
+                                        <h6><i class="bi bi-person"></i> {{ chef["cost"] }}€ / person</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                    <div id="{{ chef["id"] }}" class="accordion-collapse collapse" data-bs-parent="#accordion{{ chef["id"] }}">
+                        <div class="accordion-body">
+                            <ul class="list-group list-group-flush">
+                                {% for type in chef["types"] %}
+                                    <li class="list-group-item">{{ type }} Food</li>
+                                {% endfor %}
+                            </ul>
+                            <div class="row g-2 text-center justify-content-around my-3">
+                                <a href="/profile/{{ chef["id"] }}" class="col-sm-5 btn btn-danger">See Profile</a>
+                                <a href="/arrange-appointment/{{ chef["id"] }}" class="col-sm-5 btn btn-danger">Arrange an Appointment</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% if not chefs %}
+            <div class="d-flex justify-content-center align-items-center mt-5" style="height:100px">
+                <h5 style="color: #dc3545; font-weight: bold">No results with given filter</h5>
+            </div>
+            <div class="text-center">
+                <a href="/explore" class="btn btn-danger col-5">Reset Filter</a>
+            </div>
+        {% endif %}
+      </div>
+    {% endif %}
+{% endblock %}

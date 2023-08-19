@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Homepage
+{% endblock %}
+
+{% block main %}
+    <div class="container-lg">
+        <section class="d-flex justify-content-center p-5 align-items-center" style="background-color: #dc3545; color: white; border-top: 25px double white">
+            <img src="/static/toque.png" width="100" height="100" class="d-inline-block align-top mx-2" alt="-">
+            <div class="flex-column px-2">
+                <h1>TOQUE2GO</h1>
+                <h4>A Sumptuous Buffet Spread</h4>
+            </div>
+        </section>
+        <section style="background-color: #f3f0f0;" class="p-4">
+            <h2 style="font-weight:bold">Welcome to TOQUE2GO</h2>
+            <div style="width: 40%; border: 2px solid #dc3545; margin: 20px 0 30px 0"></div>
+            <p>At TOQUE2GO, we believe in turning moments into memories through the art of exquisite dining.
+                Whether it's a grand celebration, an intimate gathering, or a corporate event, we bring culinary
+                excellence and impeccable service to every occasion.</p>
+            <h2 style="font-weight:bold; margin-top: 60px">Services That Leave a Lasting Impression</h2>
+            <div style="width: 40%; border: 2px solid #dc3545; margin: 20px 0 30px 0"></div>
+            <p>From elegant weddings to vibrant corporate galas, our catering services cover a diverse range of events.
+                Our dedicated team crafts custom menus that reflect your unique style and preferences,
+                ensuring an unforgettable experience for you and your guests.</p>
+            <h2 style="font-weight:bold; margin-top: 60px">Experience Our Culinary Craftsmanship</h2>
+            <div style="width: 40%; border: 2px solid #dc3545; margin: 20px 0 30px 0"></div>
+            <p>Explore a world of flavors and creativity with our expertly crafted dishes. Our culinary artisans blend the
+                finest ingredients to create dishes that excite the palate and elevate the dining experience.</p>
+        </section>
+        <section class="p-4">
+            <h2 style="font-weight:bold">What Our Clients Say</h2>
+            <div style="width: 40%; border: 2px solid #dc3545; margin: 20px 0 30px 0"></div>
+            <div>
+            <a href="./profile/12" style="text-decoration: none; color: #212529"><div id="review-box" class="row m-4">
+                <div class="col-md-2 py-3">
+                    <img id="review-profile" src="https://images.unsplash.com/photo-1585358682246-23acb1561f6b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA==&auto=format&fit=crop&w=1000&q=80" alt="review-profile">
+                </div>
+                <div class="col-md-10">
+                    <div class="d-flex justify-content-between pt-3">
+                        <div>
+                            <h4 style="font-weight: bold">Marta Hernández</h4>
+                        </div>
+                    </div>
+                    <hr>
+                    <p style="white-space: pre-wrap">Working with TOQUE2GO was a delight! Their attention to detail and exquisite flavors added an unforgettable touch to our wedding day.</p>
+                </div>
+            </div></a>
+        </div>
+        </section>
+        <div id="carouselAutoplaying" class="carousel slide" data-bs-ride="carousel" >
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://p1.pxfuel.com/preview/1008/111/732/chef-catering-food.jpg" class="img-fluid w-100" alt="chef">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://cravemag.co.uk/wp-content/uploads/2022/06/private-chef-1024x683.jpg" class="img-fluid w-100" alt="chef2">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://cdn.stocksnap.io/img-thumbs/960w/barbecue-bbq_07Z2HAJFID.jpg" class="img-fluid w-100" alt="barbacue">
+                </div>
+            </div>
+        </div>
+        <section style="background-color: #f3f0f0;" class="p-4">
+            <h2 style="font-weight:bold">From Concept to Culmination</h2>
+            <div style="width: 40%; border: 2px solid #dc3545; margin: 20px 0 30px 0"></div>
+            <p>Behind every successful event is meticulous planning. Our experienced team takes care of every detail,
+                from conceptualization to execution, ensuring a seamless and stress-free experience for you.</p>
+        </section>
+        <section style="background-color: #f3f0f0;" class="p-4">
+            <h2 style="font-weight:bold;">Discover Our Culinary Journey</h2>
+            <div style="width: 40%; border: 2px solid #dc3545; margin: 20px 0 30px 0"></div>
+            <p>TOQUE2GO has been at the forefront of culinary innovation for over a decade. Our passion for creating exceptional dishes and unforgettable experiences has earned us accolades and a loyal clientele.</p>
+        </section>
+    </div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Confirm
+{% endblock %}
+
+{% block main %}
+    <div id="form" class="container py-5">
+        {% if error and not isChef or sameUser %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error: </strong>{{ error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% else %}
+            <div class="d-flex justify-content-between align-middle my-4">
+                <h4>Price for {{ people }} people</h4>
+                <h4>{{ costs["totalPricePerson"] }}€</h4>
+            </div>
+            {% if sameUbication %}
+                <div class="d-flex justify-content-between align-middle my-4">
+                    <h4>Same Ubication</h4>
+                    <h4>+ 0€</h4>
+                </div>
+            {% else %}
+                {% if isPremium %}
+                    <div class="d-flex justify-content-between align-middle my-4">
+                        <h4>Different Ubication <h4>(Premium User)</h4></h4>
+                        <h4>+ 0€</h4>
+                    </div>
+                {% else %}
+                    <div class="d-flex justify-content-between align-middle my-4">
+                        <h4>Different Ubication</h4>
+                        <h4>+ {{ costs["totalPricePerson"] }}€</h4>
+                    </div>
+                {% endif %}
+            {% endif %}
+            {% if isPremium %}
+                <div class="d-flex justify-content-between align-middle my-4">
+                    <h4>Premium User</h4>
+                    <h4>- {{ costs["discount"] }}€</h4>
+                </div>
+            {% else %}
+                <div class="d-flex justify-content-between align-middle my-4">
+                    <h4>Non-Premium User</h4>
+                    <h4>- 0€</h4>
+                </div>
+            {% endif %}
+            <hr>
+            <div class="d-flex justify-content-between align-middle my-4">
+                <h2>Total</h2>
+                <h2>{{ costs["totalCost"] }}€</h2>
+            </div>
+            <form class="d-flex row justify-content-around" action="/confirm/{{ id }}/{{ people }}/{{ date }}" method="post">
+                <div class="col-5 btn btn-success"><input id="accept" type="radio" name="selection" value="accepted" class="btn btn-success" style="width:6%" required> <label for="accept" style="width:90%">Accept</label></div>
+                <div class="col-5 btn btn-danger"><input id="decline" type="radio" name="selection" value="declined" class="btn btn-danger" style="width:6%" required> <label for="decline" style="width:90%">Decline</label></div>
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-outline-danger">Confirm</button>
+                </div>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

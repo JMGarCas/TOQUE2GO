@@ -1,0 +1,135 @@
+nav {
+    background-color: #dc3545;
+}
+
+.navbar-nav > li > a {
+    color: rgba(255,255,255,.75);
+}
+
+.navbar-nav > li > a:hover {
+    color: #FFFFFF;
+}
+
+.navbar-nav > li > a:active {
+    color: #FFFFFF;
+}
+
+.carousel-item > img, #banner {
+    min-height: 150px;
+    height: 20vw;
+    object-fit: cover;
+}
+
+#profile, #review-profile {
+    object-fit: fill;
+    display:block;
+    margin: 0 auto 0 auto;
+    width: 200px;
+    height: 200px;
+    background-color: #bcbcba;
+    border-radius: 50%;
+}
+
+#review-profile {
+    width: 100px;
+    height: 100px;
+}
+
+#review-box, #appointments-box, .accordion-button {
+    background-color: #F3F0F0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#review-box:hover, .accordion-button:hover, .accordion-button:focus{
+    box-shadow: 0px 0px 10px 2px rgba(220,53,69,.35);
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: white;
+    color: black;
+    outline: 1px solid rgba(220,53,69,0.35)
+}
+
+#profile-button {
+    display: block;
+    margin: 20px auto;
+    width: 200px;
+}
+
+#banner {
+    height: 150px;
+}
+
+.container-lg {
+    max-width: 992px;
+    padding: 0;
+}
+
+#form {
+    max-width: 576px;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: rgba(220,53,69,.50);
+    box-shadow: 0 0 0 .25rem rgba(220,53,69,.25);
+}
+
+.bi-star-fill {
+    color: #feab06;
+}
+
+/*  /premium styles  */
+
+.premium {
+    border-radius: 10px;
+    background-color: #dc3545;
+    padding: 20px 20px 0 20px;
+    max-width: 960px;
+}
+
+.premium-header {
+    padding: 40px 0;
+}
+
+.premium-paragraph{
+    padding-bottom: 20px;
+}
+
+.premium-button {
+    background-color: #dc3545;
+    border: 2px solid #FFFFFF;
+    color: #FFFFFF;
+    padding: 10px;
+    margin: 20px;
+}
+
+.premium-button:hover {
+    background-color: #FFFFFF;
+    border: 2px solid #FFFFFF;
+    color: #dc3545;
+}
+
+.chef {
+    min-width: 300px;
+    width: 20vw;
+    margin: 0 auto;
+}
+
+/*  /chef styles  */
+
+form[action="/chef"] > div > #radio-type, form[action="/edit-profile"] > div > #radio-type {
+    border-color: #dc3545;
+}
+
+form[action="/chef"] > div > .form-check-input:focus, form[action="/edit-profile"] > div > .form-check-input:focus {
+    outline: 0;
+    border-color: #dc3545;
+    box-shadow: 0 0 0 .25rem rgba(220,53,69,.25);
+}
+
+form[action="/chef"] > div > .form-check-input:checked, form[action="/edit-profile"] > div > .form-check-input:checked {
+    border-color: #dc3545;
+    background-color: #dc3545;
+}
+

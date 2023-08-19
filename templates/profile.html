@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block main %}
+    {% if error %}
+      <div class="container-lg my-5">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Error: </strong>{{ error }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      </div>
+    {% else %}
+      <div class="container-lg">
+        <img id="banner" src="{{ profileInfo["banner"] }}" class="img-fluid w-100" alt="banner">
+        <div class="row m-4">
+            {% if chefInfo %}
+                <div class="col-md-4">
+                    <img id="profile" src="{{ profileInfo["photo"] }}" alt="profile">
+                    <div class="text-center my-4">
+                        <h3 style="font-weight: bold">{{ profileInfo["name"] }} {{ profileInfo["surname"] }}</3>
+                        <h6><i class="bi bi-geo-alt"></i> {{ profileInfo["ubication"] }}</h6>
+                        <h6>{{ chefInfo["cost"] }}€ / person</h6>
+                        <h6><i class="bi bi-star-fill"></i> {{ score["average"] }} ( {{ score["number"] }} )</h6>
+                    </div>
+                    {% if session["user_id"] == profileInfo["id"] %}
+                        <a href="/edit-profile" id="profile-button" class="btn btn-danger">Edit Profile</a>
+                    {% else %}
+                        <a href="/arrange-appointment/{{ profileInfo["id"] }}" id="profile-button" class="btn btn-danger">Arrange an appointment</a>
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                    <p id="profile-text" class="mb-5" style="white-space: pre-wrap">{{ chefInfo["information"] }}</p>
+                    <h4 class="my-3 text-center" style="font-weight: bold">Specialities</h4>
+                    <ul class="list-group list-group-flush">
+                        {% for type in chefInfo["types"] %}
+                            <li class="list-group-item">{{ type }} Food</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% else %}
+                <div class="col-md-12">
+                    <img id="profile" src="{{ profileInfo["photo"] }}" alt="profile">
+                    <div class="text-center my-4">
+                        <h3 style="font-weight: bold">{{ profileInfo["name"] }} {{ profileInfo["surname"] }}</3>
+                        <h6><i class="bi bi-geo-alt"></i> {{ profileInfo["ubication"] }}</h6>
+                    </div>
+                    {% if session["user_id"] == profileInfo["id"] %}
+                        <a href="/edit-profile" id="profile-button" class="btn btn-danger">Edit Profile</a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+        {% if chefInfo %}
+            <div class="row m-4">
+                <div class="d-flex justify-content-between align-middle">
+                    <h4 style="font-weight: bold">Reviews</h4>
+                    {% if session["user_id"] != profileInfo["id"] and not isReviewAlreadyWritten %}
+                        <a href="/reviews/{{ profileInfo["id"] }}" class="btn btn-danger">Write Review</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% if reviews != "No reviews"%}
+                {% for review in reviews %}
+                    <a href="./{{ review["writer_id"] }}" style="text-decoration: none; color: #212529"><div id="review-box" class="row m-4">
+                        <div class="col-md-2 py-3">
+                            <img id="review-profile" src="{{ review["profile"] }}" alt="review-profile">
+                        </div>
+                        <div class="col-md-10">
+                            <div class="d-flex justify-content-between pt-3">
+                                <div>
+                                    <h4 style="font-weight: bold">{{ review["name"] }} {{ review["surname"] }}</h4>
+                                    <h6>{{ review["date"] }}</h6>
+                                </div>
+                                <h4><i class="bi bi-star-fill"></i> {{ review["rating"] }}</h4>
+                            </div>
+                            <hr>
+                            <p style="white-space: pre-wrap">{{ review["text"] }}</p>
+                        </div>
+                    </div></a>
+                {% endfor %}
+            {% else %}
+                <div class="d-flex justify-content-center align-items-center" style="height:100px">
+                    <h5 style="color: #dc3545; font-weight: bold">There are no reviews for this chef yet</h5>
+                </div>
+            {% endif %}
+        {% endif %}
+      </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+    <div id="form" class="container py-5">
+        {% if error %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error: </strong>{{ error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
+        <form action="/login" method="post">
+            <div class="form-floating mb-3">
+                <input class="form-control" id="floatingEmail" autocomplete="off" autofocus name="email" placeholder="Email" type="email" required>
+                <label for="floatingEmail">Email address</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input class="form-control" id="floatingPassword" autocomplete="off" name="password" placeholder="Password" type="password" required>
+                <label for="floatingPassword">Password</label>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-danger">Log In</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

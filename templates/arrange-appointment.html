@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Arrange an Appointment
+{% endblock %}
+
+{% block main %}
+    <div id="form" class="container py-5">
+        {% if error and not isChef or sameUser %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error: </strong>{{ error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% else %}
+            {% if error %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error: </strong>{{ error }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endif %}
+                <form action="/arrange-appointment/{{ id }}" method="post">
+                    <div class="form-floating my-4">
+                        <input name="people" type="number" step="1" min="1" autofocus class="form-control" id="floatingInputGroup" placeholder="3" required>
+                        <label for="floatingInputGroup">How Many people?</label>
+                    </div>
+                    <div class="form-floating my-4">
+                        <input name="date" type="date" class="form-control" id="floatingDate" required></input>
+                        <label for="floatingDate">Select a Date</label>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-danger">Confirm Appointment</button>
+                    </div>
+                </form>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,135 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Edit Profile
+{% endblock %}
+
+{% block main %}
+    <div id="form" class="container py-5">
+        {% if error %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error: </strong>{{ error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
+        <form action="/edit-profile" method="post">
+                <div class="form-floating mb-3">
+                    <input class="form-control" id="floatingEmail" autocomplete="off" autofocus name="email" placeholder="Email" type="email" >
+                    <label for="floatingEmail">Email address</label>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="floatingName" autocomplete="off" name="name" placeholder="Name" type="text" >
+                            <label for="floatingName">Name</label>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="floatingSurname" autocomplete="off" name="surname" placeholder="Surname" type="text" >
+                            <label for="floatingSurname">Surname</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="floatingUbication" autocomplete="off" name="ubication" placeholder="Ubication" type="text" >
+                        <option selected value="no-changes">( Select an Ubication )</option>
+                        {% for ubication in ubications %}
+                            <option value="{{ubication}}">{{ ubication }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="floatingUbication">Ubication</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" id="floatingPhoto" autocomplete="off" autofocus name="photo" placeholder="Photo URL" type="url" >
+                    <label for="floatingPhoto">Photo URL</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" id="floatingBanner" autocomplete="off" autofocus name="banner" placeholder="Banner URL" type="url" >
+                    <label for="floatingBanner">Banner URL</label>
+                </div>
+
+
+                {% if isChef %}
+                    <h5 class="my-4">What Types of Food Do You Cook ?</h5>
+                    <div class="form-check m-2">
+                        <input id="radio-type" class="form-check-input" type="checkbox" name="type" value="Mexican" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Mexican Food
+                        </label>
+                    </div>
+                    <div class="form-check m-2">
+                        <input id="radio-type" class="form-check-input" type="checkbox" name="type" value="Spanish" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Spanish Food
+                        </label>
+                    </div>
+                    <div class="form-check m-2">
+                        <input id="radio-type" class="form-check-input" type="checkbox" name="type" value="Italian" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Italian Food
+                        </label>
+                    </div>
+                    <div class="form-check m-2">
+                        <input id="radio-type" class="form-check-input" type="checkbox" name="type" value="Korean" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Korean Food
+                        </label>
+                    </div>
+                    <div class="form-check m-2">
+                        <input id="radio-type" class="form-check-input" type="checkbox" name="type" value="Japanese" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Japanese Food
+                        </label>
+                    </div>
+                    <div class="form-check m-2">
+                        <input id="radio-type" class="form-check-input" type="checkbox" name="type" value="Chinese" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Chinese Food
+                        </label>
+                    </div>
+                    <div class="form-check m-2">
+                        <input id="radio-type" class="form-check-input" type="checkbox" name="type" value="Thai" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Thai Food
+                        </label>
+                    </div>
+                    <div class="form-check m-2">
+                        <input id="radio-type" class="form-check-input" type="checkbox" name="type" value="Indian" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Indian Food
+                        </label>
+                    </div>
+                    <div class="input-group my-4">
+                        <div class="form-floating">
+                            <input name="cost" type="number" step="0.01" min="0.01" focus class="form-control" id="floatingInputGroup" placeholder="40.50" >
+                            <label for="floatingInputGroup">How Much Do You Charge Per Person ?</label>
+                        </div>
+                        <span class="input-group-text">€ / person</span>
+                    </div>
+                    <div class="form-floating my-4">
+                        <textarea name="information" class="form-control" id="floatingTextarea" style="height: 100px" ></textarea>
+                        <label for="floatingTextarea">Tell us About Yourself</label>
+                    </div>
+                {% endif %}
+
+
+                <div class="my-4"><h3 style="display:inline">Change password <h6 style="display:inline">(This action will log you out)</h6></h3></div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" id="floatingCurrentPassword" autocomplete="off" autofocus name="current" placeholder="Current Password" type="password">
+                    <label for="floatingCurrentPassword">Current Password</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" id="floatingPassword" autocomplete="off" name="password" placeholder="Password" type="password" >
+                    <label for="floatingPassword">Password</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" id="floatingPasswordAgain" autocomplete="off" name="confirmation" placeholder="Password (again)" type="password" >
+                    <label for="floatingPasswordAgain">Password (Again)</label>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-danger">Edit Profile</button>
+                </div>
+        </form>
+    </div>
+{% endblock %}

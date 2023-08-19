@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Write Review
+{% endblock %}
+
+{% block main %}
+    <div id="form" class="container py-5">
+        {% if error and not isChef or sameUser or isReviewAlreadyWritten%}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error: </strong>{{ error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% else %}
+            {% if error %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error: </strong>{{ error }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endif %}
+            <form action="/reviews/{{ id }}" method="post">
+                <div class="input-group my-4">
+                    <span class="input-group-text"><i class="bi bi-star"></i></span>
+                    <div class="form-floating">
+                        <input name="rating" type="number" step="0.1" min="1.0" max="5.0" autofocus class="form-control" id="floatingInputGroup" placeholder="4.6" required>
+                        <label for="floatingInputGroup">What Is Your Rating?</label>
+                    </div>
+                </div>
+                <div class="form-floating my-4">
+                    <textarea name="text" class="form-control" id="floatingTextarea" style="height: 100px" required></textarea>
+                    <label for="floatingTextarea">Write Your Review</label>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-danger">Send The Review</button>
+                </div>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}
