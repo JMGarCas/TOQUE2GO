@@ -19,7 +19,7 @@ db = SQL("sqlite:///toque.db")
 
 DISCOUNT = 0.05
 
-ubications = [
+locations = [
     "Andalucía",
     "Aragón",
     "Asturias",
@@ -96,9 +96,9 @@ def appointmentAlreadyArranged(id, date):
     except:
         return False
 
-def sameUbication(id):
-    currentUser = db.execute("SELECT ubication FROM users WHERE id = ?", session["user_id"])
-    chef = db.execute("SELECT ubication FROM users WHERE id = ?", id)
+def sameLocation(id):
+    currentUser = db.execute("SELECT location FROM users WHERE id = ?", session["user_id"])
+    chef = db.execute("SELECT location FROM users WHERE id = ?", id)
     return currentUser == chef
 
 
@@ -109,7 +109,7 @@ def calculateCost(chef_id, people, cost):
     totalPricePerson = people * cost
 
     totalCost += totalPricePerson
-    if not sameUbication(chef_id) and not info["isPremium"]:
+    if not sameLocation(chef_id) and not info["isPremium"]:
         totalCost += totalPricePerson
 
     if info["isPremium"]:
@@ -167,29 +167,29 @@ def explore():
             types = list(map(lambda x:x["type"], types))
             chef["types"] = types
 
-        ubication = request.form.get("ubication")
-        if ubication != "default":
-            if ubication not in ubications:
-                return render_template("explore.html", info=info, chefs=chefs, ubications=ubications, allTypes = allTypes, error="Invalid ubication")
-            chefs = filter(lambda x: x['ubication'] == ubication, chefs)
+        location = request.form.get("location")
+        if location != "default":
+            if location not in locations:
+                return render_template("explore.html", info=info, chefs=chefs, locations=locations, allTypes = allTypes, error="Invalid location")
+            chefs = filter(lambda x: x['location'] == location, chefs)
 
         type = request.form.get("type")
         if type != "default":
             if type not in allTypes:
-                return render_template("explore.html", info=info, chefs=chefs, ubications=ubications, allTypes = allTypes, error="Invalid type")
+                return render_template("explore.html", info=info, chefs=chefs, locations=locations, allTypes = allTypes, error="Invalid type")
             chefs = filter(lambda chef: type in chef["types"], chefs)
 
         cost = request.form.get('cost')
         if not cost:
             cost = float('inf')
         if float(cost) <= 0.0:
-            return render_template("explore.html", info=info, chefs=chefs, ubications=ubications, allTypes = allTypes, error="Invalid cost value")
+            return render_template("explore.html", info=info, chefs=chefs, locations=locations, allTypes = allTypes, error="Invalid cost value")
 
         chefs = filter(lambda chef: chef["cost"] <= float(cost), chefs)
 
-        return render_template("explore.html", info=info, chefs=list(chefs), ubications=ubications, allTypes = allTypes)
+        return render_template("explore.html", info=info, chefs=list(chefs), locations=locations, allTypes = allTypes)
     else:
-        return render_template("explore.html", info=info, chefs=chefs, ubications=ubications, allTypes = allTypes)
+        return render_template("explore.html", info=info, chefs=chefs, locations=locations, allTypes = allTypes)
 
 
 @app.route("/chef", methods=["GET", "POST"])
@@ -263,16 +263,16 @@ def register():
         elif confirmation != password:
             return render_template("register.html", error="Password not equal to confirmation")
 
-        ubication = request.form.get("ubication")
-        if ubication not in ubications:
-            return render_template("register.html", error="Invalid ubication")
+        location = request.form.get("location")
+        if location not in locations:
+            return render_template("register.html", error="Invalid location")
 
         hash = generate_password_hash(password)
-        db.execute("INSERT INTO users (email, name, surname, hash, ubication, profile, banner) VALUES(?, ?, ?, ?, ?, ?, ?)", email, name, surname, hash, ubication, "/static/default-profile.png", "/static/default-banner.jpg")
+        db.execute("INSERT INTO users (email, name, surname, hash, location, profile, banner) VALUES(?, ?, ?, ?, ?, ?, ?)", email, name, surname, hash, location, "/static/default-profile.png", "/static/default-banner.jpg")
         return redirect("/login")
 
     else:
-        return render_template("register.html", ubications=ubications)
+        return render_template("register.html", locations=locations)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -339,7 +339,7 @@ def profile(id):
         "id": userInfo[0]["id"],
         "name" : userInfo[0]["name"],
         "surname" : userInfo[0]["surname"],
-        "ubication" : userInfo[0]["ubication"],
+        "location" : userInfo[0]["location"],
         "photo": userInfo[0]["profile"],
         "banner": userInfo[0]["banner"]
     }
@@ -365,7 +365,7 @@ def profile(id):
 
 @app.route("/edit-profile", methods=["GET", "POST"])
 @login_required
-def editprofile():
+def editProfile():
     info = checkUserInfo()
     isChef = True
     chefInfo = db.execute("SELECT * from chefs WHERE user_id == ?", session['user_id'])
@@ -388,7 +388,7 @@ def editprofile():
                 userCurrentInformation = information
             if len(types) > 0:
                 if len(types) != len(set(types)):
-                    return render_template("edit-profile.html", info=info, isChef=isChef, error="Select distinct types of food", ubications=ubications)
+                    return render_template("edit-profile.html", info=info, isChef=isChef, error="Select distinct types of food", locations=locations)
                 userCurrentTypes = types
                 db.execute("DELETE FROM chefs WHERE user_id = ?", session["user_id"])
 
@@ -404,13 +404,13 @@ def editprofile():
         userCurrentName = userInfo[0]["name"]
         userCurrentSurname = userInfo[0]["surname"]
         userCurrentPassword = userInfo[0]["hash"]
-        userCurrentUbication = userInfo[0]["ubication"]
+        userCurrentLocation = userInfo[0]["location"]
         userCurrentProfile = userInfo[0]["profile"]
         userCurrentBanner = userInfo[0]["banner"]
 
         email = request.form.get("email")
         if len(db.execute("SELECT * FROM users WHERE email = ?", email)) != 0:
-            return render_template("edit-profile.html", info=info, isChef=isChef, error="Email already registered", ubications=ubications)
+            return render_template("edit-profile.html", info=info, isChef=isChef, error="Email already registered", locations=locations)
         if email:
             userCurrentEmail = email
         name = request.form.get("name")
@@ -419,11 +419,11 @@ def editprofile():
         surname = request.form.get("surname")
         if surname:
             userCurrentSurname = surname
-        ubication = request.form.get("ubication")
-        if ubication not in ubications and ubication != "no-changes":
-            return render_template("edit-profile.html", info=info, isChef=isChef, error="Invalid ubication", ubications=ubications)
-        if ubication != "no-changes":
-            userCurrentUbication = ubication
+        location = request.form.get("location")
+        if location not in locations and location != "no-changes":
+            return render_template("edit-profile.html", info=info, isChef=isChef, error="Invalid location", locations=locations)
+        if location != "no-changes":
+            userCurrentLocation = location
         profile = request.form.get("photo")
         if profile:
             userCurrentProfile = profile
@@ -431,23 +431,23 @@ def editprofile():
         if banner:
             userCurrentBanner = banner
 
-        db.execute("UPDATE users SET email = ?, name = ?, surname = ?, ubication = ?, profile = ?, banner = ? WHERE id = ?", userCurrentEmail, userCurrentName, userCurrentSurname, userCurrentUbication, userCurrentProfile, userCurrentBanner ,session["user_id"])
+        db.execute("UPDATE users SET email = ?, name = ?, surname = ?, location = ?, profile = ?, banner = ? WHERE id = ?", userCurrentEmail, userCurrentName, userCurrentSurname, userCurrentLocation, userCurrentProfile, userCurrentBanner ,session["user_id"])
 
         password = request.form.get("password")
         confirmation = request.form.get("confirmation")
 
         if password or confirmation:
             if not password:
-                return render_template("edit-profile.html", info=info, isChef=isChef, error="Blank password", ubications=ubications)
+                return render_template("edit-profile.html", info=info, isChef=isChef, error="Blank password", locations=locations)
             if not confirmation:
-                return render_template("edit-profile.html", info=info, isChef=isChef, error="Blank confirmation", ubications=ubications)
+                return render_template("edit-profile.html", info=info, isChef=isChef, error="Blank confirmation", locations=locations)
             if not check_password_hash(
                 userCurrentPassword, request.form.get("current")
             ):
-                return render_template("edit-profile.html", info=info, isChef=isChef, error="Incorrect password", ubications=ubications)
+                return render_template("edit-profile.html", info=info, isChef=isChef, error="Incorrect password", locations=locations)
 
             if confirmation != password:
-                return render_template("edit-profile.html", info=info, isChef=isChef, error="New password not equal to confirmation", ubications=ubications)
+                return render_template("edit-profile.html", info=info, isChef=isChef, error="New password not equal to confirmation", locations=locations)
 
             hash = generate_password_hash(password)
             db.execute("UPDATE users SET hash = ? WHERE id = ?", hash, session["user_id"])
@@ -456,7 +456,7 @@ def editprofile():
 
         return redirect("/profile/"+str(session['user_id']))
     else:
-        return render_template("edit-profile.html", info=info, isChef=isChef, ubications=ubications)
+        return render_template("edit-profile.html", info=info, isChef=isChef, locations=locations)
 
 
 @app.route("/reviews/<id>", methods=["GET", "POST"])
@@ -547,7 +547,7 @@ def decline(id):
 
 @app.route("/arrange-appointment/<id>", methods=["GET", "POST"])
 @login_required
-def arrangeappointment(id):
+def arrangeAppointment(id):
     info = checkUserInfo()
     sameUser = info["id"] == int(id)
     isChef = True
@@ -620,7 +620,7 @@ def confirm(id, people, dateS):
         else:
             render_template("confirm.html", id=id, info=info, error="Select a valid value")
     else:
-        return render_template("confirm.html", id=id, info=info, costs=costs, people=people, date=dateS, sameUbication=sameUbication(id), isPremium=info["isPremium"])
+        return render_template("confirm.html", id=id, info=info, costs=costs, people=people, date=dateS, sameLocation=sameLocation(id), isPremium=info["isPremium"])
 
 @app.route("/users")
 @login_required

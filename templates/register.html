@@ -46,13 +46,13 @@
                 </div>
             </div>
             <div class="form-floating mb-3">
-                <select class="form-select" id="floatingUbication" autocomplete="off" name="ubication" placeholder="Ubication" type="text" required>
-                    <option disabled selected value="">( Select an Ubication )</option>
-                    {% for ubication in ubications %}
-                        <option value="{{ubication}}">{{ ubication }}</option>
+                <select class="form-select" id="floatingLocation" autocomplete="off" name="location" placeholder="Location" type="text" required>
+                    <option disabled selected value="">( Select a Location )</option>
+                    {% for location in locations %}
+                        <option value="{{location}}">{{ location }}</option>
                     {% endfor %}
                 </select>
-                <label for="floatingUbication">Ubication</label>
+                <label for="floatingLocation">Location</label>
             </div>
             <div class="d-grid">
                 <button type="submit" class="btn btn-danger">Create Account</button>

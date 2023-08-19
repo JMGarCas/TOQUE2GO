@@ -16,20 +16,20 @@
                 <h4>Price for {{ people }} people</h4>
                 <h4>{{ costs["totalPricePerson"] }}€</h4>
             </div>
-            {% if sameUbication %}
+            {% if sameLocation %}
                 <div class="d-flex justify-content-between align-middle my-4">
-                    <h4>Same Ubication</h4>
+                    <h4>Same Location</h4>
                     <h4>+ 0€</h4>
                 </div>
             {% else %}
                 {% if isPremium %}
                     <div class="d-flex justify-content-between align-middle my-4">
-                        <h4>Different Ubication <h4>(Premium User)</h4></h4>
+                        <h4>Different Location <h4>(Premium User)</h4></h4>
                         <h4>+ 0€</h4>
                     </div>
                 {% else %}
                     <div class="d-flex justify-content-between align-middle my-4">
-                        <h4>Different Ubication</h4>
+                        <h4>Different Location</h4>
                         <h4>+ {{ costs["totalPricePerson"] }}€</h4>
                     </div>
                 {% endif %}

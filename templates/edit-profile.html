@@ -32,13 +32,13 @@
                     </div>
                 </div>
                 <div class="form-floating mb-3">
-                    <select class="form-select" id="floatingUbication" autocomplete="off" name="ubication" placeholder="Ubication" type="text" >
-                        <option selected value="no-changes">( Select an Ubication )</option>
-                        {% for ubication in ubications %}
-                            <option value="{{ubication}}">{{ ubication }}</option>
+                    <select class="form-select" id="floatingLocation" autocomplete="off" name="location" placeholder="Location" type="text" >
+                        <option selected value="no-changes">( Select a Location )</option>
+                        {% for location in locations %}
+                            <option value="{{location}}">{{ location }}</option>
                         {% endfor %}
                     </select>
-                    <label for="floatingUbication">Ubication</label>
+                    <label for="floatingLocation">Location</label>
                 </div>
                 <div class="form-floating mb-3">
                     <input class="form-control" id="floatingPhoto" autocomplete="off" autofocus name="photo" placeholder="Photo URL" type="url" >

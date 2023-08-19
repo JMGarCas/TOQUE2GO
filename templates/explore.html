@@ -19,13 +19,13 @@
                 <div class="row">
                     <div class="col-sm">
                         <div class="form-floating mt-3">
-                            <select class="form-select" id="floatingUbication" autocomplete="off" name="ubication" placeholder="Ubication" type="text">
-                                <option value="default">( Select an Ubication )</option>
-                                {% for ubication in ubications %}
-                                    <option value="{{ubication}}">{{ ubication }}</option>
+                            <select class="form-select" id="floatingLocation" autocomplete="off" name="location" placeholder="Location" type="text">
+                                <option value="default">( Select a Location )</option>
+                                {% for location in locations %}
+                                    <option value="{{location}}">{{ location }}</option>
                                 {% endfor %}
                             </select>
-                            <label for="floatingUbication">Ubication</label>
+                            <label for="floatingLocation">Location</label>
                         </div>
                     </div>
                     <div class="col-sm">
@@ -36,7 +36,7 @@
                                     <option value="{{ type }}">{{ type }}</option>
                                 {% endfor %}
                             </select>
-                            <label for="floatingUbication">Type of Food</label>
+                            <label for="floatingLocation">Type of Food</label>
                         </div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                                 <div>
                                     <div>
                                         <h4 style="font-weight: bold">{{ chef["name"] }} {{ chef["surname"] }}</h4>
-                                        <h6><i class="bi bi-geo-alt"></i> {{ chef["ubication"] }}</h6>
+                                        <h6><i class="bi bi-geo-alt"></i> {{ chef["location"] }}</h6>
                                         <h6><i class="bi bi-person"></i> {{ chef["cost"] }}€ / person</h6>
                                     </div>
                                 </div>
