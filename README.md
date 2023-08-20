@@ -29,7 +29,7 @@ Welcome to TOQUE2GO! This application allows users to arrange appointments with 
 - Arrange an appointment with a chef for your events based on the number of people and date.
 - Check and manage all your arranged appointments. If you are a chef, accept or decline them.
 - Become a chef and show the world your mastery.
-- Wrtie and read reviews from other chefs.
+- Write and read reviews from other chefs.
 
 ## Installation
 
@@ -96,13 +96,13 @@ We welcome contributions to TOQUE2GO! If you'd like to contribute, please follow
 
 ## Technologies Used
 
-- Python
-- Bootsrap
-- Flask
-- Jinja
-- CSS
-- HTML
-- SQL
-- Docker
-- Docker Compose
-- Git
+- [Python](https://www.python.org/): A versatile and widely used programming language known for its readability and extensive libraries.
+- [Bootstrap](https://getbootstrap.com/): A popular front-end framework for creating responsive and visually appealing web interfaces.
+- [Flask](https://flask.palletsprojects.com/en/2.3.x/): A lightweight and flexible Python web framework used for building web applications.
+- [Jinja](https://jinja.palletsprojects.com/en/3.1.x/): A templating engine integrated with Flask to dynamically generate HTML content in web applications.
+- [CSS](https://developer.mozilla.org/es/docs/Web/CSS): Cascading Style Sheets, used to design the layout and appearance of web pages.
+- [HTML](https://developer.mozilla.org/es/docs/Web/HTML): Hypertext Markup Language, the standard markup language for creating web pages and structures.
+- [SQLite](https://www.sqlite.org/index.html): A self-contained, serverless, and lightweight relational database management system often used for embedded systems and smaller applications.
+- [Docker](https://www.docker.com/): A platform for developing, shipping, and running applications in isolated containers.
+- [Docker Compose](https://docs.docker.com/compose/): A tool for defining and running multi-container Docker applications.
+- [Git](https://git-scm.com/): A distributed version control system used for tracking changes in code and collaborating on software development projects.
