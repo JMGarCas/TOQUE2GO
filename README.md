@@ -6,7 +6,7 @@
 
 ## Catering Service Web Application made with Python and Flask
 
-Welcome to TOQUE2GO! This web application allows users to arrange appointments with a selection of talented chefs for their events. Whether it's a family dinner, a corporate event, or a special celebration, this app makes it easy to connect with experienced chefs to create memorable culinary experiences.
+Welcome to TOQUE2GO! This web application allows users to arrange appointments with a selection of talented chefs for their events. Whether it's a family dinner, a corporate event, or a special celebration, this web app makes it easy to connect with experienced chefs to create memorable culinary experiences.
 
 ## Table of Contents
 
